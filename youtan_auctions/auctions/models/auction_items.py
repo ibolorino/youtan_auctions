@@ -1,5 +1,7 @@
 from django.db import models
 
+from youtan_auctions.users.models import User
+
 from .auctions import Auction
 
 
@@ -19,6 +21,9 @@ class Property(models.Model):
     city = models.CharField("Cidade", max_length=255)
     state = models.CharField("Estado", max_length=255)
     zip_code = models.CharField("CEP", max_length=15)
+    bids = models.ManyToManyField(
+        User, verbose_name="Lances", through="Properties_Bids", blank=True
+    )
 
     class Meta:
         verbose_name = "Imóvel"
@@ -26,6 +31,19 @@ class Property(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Properties_Bids(models.Model):
+    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.DO_NOTHING)
+    property = models.ForeignKey(
+        Property, verbose_name="Imóvel", on_delete=models.CASCADE
+    )
+    date = models.DateTimeField("Data/Hora", auto_now=False, auto_now_add=True)
+    value = models.DecimalField("Lance", max_digits=20, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Lance - Imóvel"
+        verbose_name_plural = "Lances - Imóveis"
 
 
 class Vehicle(models.Model):
@@ -44,6 +62,9 @@ class Vehicle(models.Model):
     year = models.IntegerField("Ano")
     fuel = models.CharField("Combustível", max_length=255)
     observation = models.TextField("Observações")
+    bids = models.ManyToManyField(
+        User, verbose_name="Lances", through="Vehicles_Bids", blank=True
+    )
 
     class Meta:
         verbose_name = "Veículo"
@@ -51,3 +72,16 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Vehicles_Bids(models.Model):
+    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.DO_NOTHING)
+    vehicle = models.ForeignKey(
+        Vehicle, verbose_name="Veículo", on_delete=models.CASCADE
+    )
+    date = models.DateTimeField("Data/Hora", auto_now=False, auto_now_add=True)
+    value = models.DecimalField("Lance", max_digits=20, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Lance - Veículo"
+        verbose_name_plural = "Lances - Veículos"
