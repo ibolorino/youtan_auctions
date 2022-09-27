@@ -1,21 +1,30 @@
 from rest_framework import viewsets
+from rest_framework.mixins import CreateModelMixin
+from rest_framework.permissions import IsAuthenticated
 
-from youtan_auctions.auctions.models import Auction, Bank, Property
-from youtan_auctions.auctions.permissions import CustomPermission
+from youtan_auctions.auctions.models import Auction, Bank, Property, Vehicle
+from youtan_auctions.auctions.permissions import IsAdminOrReadOnly
 
-from .actions import PropertyActions
-from .serializers import AuctionSerializer, BankSerializer, PropertySerializer
+from .actions import BidActions
+from .serializers import (
+    AuctionSerializer,
+    BankSerializer,
+    Properties_BidsSerializer,
+    PropertySerializer,
+    Vehicles_BidsSerializer,
+    VehicleSerializer,
+)
 
 
 class BankViewSet(viewsets.ModelViewSet):
     serializer_class = BankSerializer
     queryset = Bank.objects.all()
-    permission_classes = [CustomPermission]
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class AuctionViewSet(viewsets.ModelViewSet):
     serializer_class = AuctionSerializer
-    permission_classes = [CustomPermission]
+    permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
         queryset = Auction.objects.all()
@@ -26,10 +35,9 @@ class AuctionViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class PropertyViewSet(PropertyActions, viewsets.ModelViewSet):
+class PropertyViewSet(viewsets.ModelViewSet):
     serializer_class = PropertySerializer
-    permission_classes = [CustomPermission]
-    allowed_actions = ["bid"]
+    permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
         queryset = Property.objects.all()
@@ -38,3 +46,26 @@ class PropertyViewSet(PropertyActions, viewsets.ModelViewSet):
                 queryset, ["auction"]
             )
         return queryset
+
+
+class VehicleViewSet(viewsets.ModelViewSet):
+    serializer_class = VehicleSerializer
+    permission_classes = [IsAdminOrReadOnly]
+
+    def get_queryset(self):
+        queryset = Vehicle.objects.all()
+        if queryset:
+            queryset = self.get_serializer_class().select_related_queryset(
+                queryset, ["auction"]
+            )
+        return queryset
+
+
+class BidViewSet(BidActions, CreateModelMixin, viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == "property":
+            return Properties_BidsSerializer
+        elif self.action == "vehicle":
+            return Vehicles_BidsSerializer

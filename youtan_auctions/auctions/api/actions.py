@@ -1,18 +1,23 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from youtan_auctions.auctions.models import Properties_Bids
 
+class BidActions:
+    def create(self, request):
+        message = {"detail": 'Method "POST" not allowed.'}
+        return Response(message, status=405)
 
-class PropertyActions:
-    """Custom actions for Property"""
+    def bid(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=201, headers=headers)
 
-    @action(detail=True, methods=["post"])
-    def bid(self, request, pk):
-        instance = self.get_object()
-        new_bid = Properties_Bids(
-            user=request.user, value=self.request.data.get("value"), property=instance
-        )
-        new_bid.save()
+    @action(detail=False, methods=["post"])
+    def property(self, request):
+        return self.bid(request)
 
-        return Response("ok", status=200)
+    @action(detail=False, methods=["post"])
+    def vehicle(self, request):
+        return self.bid(request)

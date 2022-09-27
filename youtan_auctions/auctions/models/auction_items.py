@@ -24,6 +24,7 @@ class Property(models.Model):
     bids = models.ManyToManyField(
         User, verbose_name="Lances", through="Properties_Bids", blank=True
     )
+    minimum_increment = models.IntegerField("Incremento Mínimo")
 
     class Meta:
         verbose_name = "Imóvel"
@@ -44,6 +45,7 @@ class Properties_Bids(models.Model):
     class Meta:
         verbose_name = "Lance - Imóvel"
         verbose_name_plural = "Lances - Imóveis"
+        ordering = ["-id"]
 
 
 class Vehicle(models.Model):
@@ -65,6 +67,7 @@ class Vehicle(models.Model):
     bids = models.ManyToManyField(
         User, verbose_name="Lances", through="Vehicles_Bids", blank=True
     )
+    minimum_increment = models.IntegerField("Incremento Mínimo")
 
     class Meta:
         verbose_name = "Veículo"
@@ -85,3 +88,4 @@ class Vehicles_Bids(models.Model):
     class Meta:
         verbose_name = "Lance - Veículo"
         verbose_name_plural = "Lances - Veículos"
+        ordering = ["-id"]
