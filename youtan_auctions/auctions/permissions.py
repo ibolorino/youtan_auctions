@@ -1,9 +1,12 @@
 from rest_framework import permissions
 
 
-class IsAadminOrReadOnly(permissions.BasePermission):
+class CustomPermission(permissions.BasePermission):
     """
-    The request is authenticated as a admin, or is a read-only request.
+    Custom permission to views.
+    Allow authenticated users on safe methods;
+    Allow authenticated users on allowed_actions;
+    Allow admin users on all methods
     """
 
     def has_permission(self, request, view):
@@ -12,6 +15,12 @@ class IsAadminOrReadOnly(permissions.BasePermission):
                 request.user
                 and request.user.is_authenticated
                 and request.method in permissions.SAFE_METHODS
-            )
-            or (request.user and request.user.is_staff)
+            )  # user is authenticated and method is safe
+            or (request.user and request.user.is_staff)  # user is admin
+            or (
+                request.user
+                and request.user.is_authenticated
+                and view.allowed_actions
+                and view.action in view.allowed_actions
+            )  # user is authenticated and actions is allowed
         )
