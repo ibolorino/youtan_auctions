@@ -1,5 +1,6 @@
 from django.db import models
 
+from youtan_auctions.auctions.utils import get_image_path
 from youtan_auctions.users.models import User
 
 from .auctions import Auction
@@ -24,6 +25,7 @@ class Property(models.Model):
     bids = models.ManyToManyField(
         User, verbose_name="Lances", through="Properties_Bids", blank=True
     )
+    minimum_increment = models.IntegerField("Incremento Mínimo")
 
     class Meta:
         verbose_name = "Imóvel"
@@ -44,6 +46,19 @@ class Properties_Bids(models.Model):
     class Meta:
         verbose_name = "Lance - Imóvel"
         verbose_name_plural = "Lances - Imóveis"
+        ordering = ["-id"]
+
+
+class PropertyImages(models.Model):
+    property = models.ForeignKey(
+        Property, verbose_name="Imóvel", on_delete=models.CASCADE
+    )
+    image = models.ImageField("Imagem", upload_to=get_image_path, max_length=None)
+
+    class Meta:
+        verbose_name = "Imagem - Imóvel"
+        verbose_name_plural = "Imagens - Imóveis"
+        ordering = ["-id"]
 
 
 class Vehicle(models.Model):
@@ -65,6 +80,7 @@ class Vehicle(models.Model):
     bids = models.ManyToManyField(
         User, verbose_name="Lances", through="Vehicles_Bids", blank=True
     )
+    minimum_increment = models.IntegerField("Incremento Mínimo")
 
     class Meta:
         verbose_name = "Veículo"
@@ -85,3 +101,16 @@ class Vehicles_Bids(models.Model):
     class Meta:
         verbose_name = "Lance - Veículo"
         verbose_name_plural = "Lances - Veículos"
+        ordering = ["-id"]
+
+
+class VehicleImages(models.Model):
+    vehicle = models.ForeignKey(
+        Vehicle, verbose_name="Veículo", on_delete=models.CASCADE
+    )
+    image = models.ImageField("Imagem", upload_to=get_image_path, max_length=None)
+
+    class Meta:
+        verbose_name = "Imagem - Veículo"
+        verbose_name_plural = "Imagens - Veículos"
+        ordering = ["-id"]
