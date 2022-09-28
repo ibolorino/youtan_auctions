@@ -1,5 +1,6 @@
 from django.db import models
 
+from youtan_auctions.auctions.utils import get_image_path
 from youtan_auctions.users.models import User
 
 from .auctions import Auction
@@ -48,6 +49,18 @@ class Properties_Bids(models.Model):
         ordering = ["-id"]
 
 
+class PropertyImages(models.Model):
+    property = models.ForeignKey(
+        Property, verbose_name="Imóvel", on_delete=models.CASCADE
+    )
+    image = models.ImageField("Imagem", upload_to=get_image_path, max_length=None)
+
+    class Meta:
+        verbose_name = "Imagem - Imóvel"
+        verbose_name_plural = "Imagens - Imóveis"
+        ordering = ["-id"]
+
+
 class Vehicle(models.Model):
     auction = models.ForeignKey(
         Auction, verbose_name="Leilão", on_delete=models.CASCADE
@@ -88,4 +101,16 @@ class Vehicles_Bids(models.Model):
     class Meta:
         verbose_name = "Lance - Veículo"
         verbose_name_plural = "Lances - Veículos"
+        ordering = ["-id"]
+
+
+class VehicleImages(models.Model):
+    vehicle = models.ForeignKey(
+        Vehicle, verbose_name="Veículo", on_delete=models.CASCADE
+    )
+    image = models.ImageField("Imagem", upload_to=get_image_path, max_length=None)
+
+    class Meta:
+        verbose_name = "Imagem - Veículo"
+        verbose_name_plural = "Imagens - Veículos"
         ordering = ["-id"]

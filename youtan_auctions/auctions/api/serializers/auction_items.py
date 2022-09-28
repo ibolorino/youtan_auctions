@@ -5,6 +5,7 @@ from youtan_auctions.auctions.mixins import PrefetchedSerializer
 from youtan_auctions.auctions.models import (
     Properties_Bids,
     Property,
+    PropertyImages,
     Vehicle,
     Vehicles_Bids,
 )
@@ -19,6 +20,9 @@ class Properties_BidsSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         slug_field="username",
     )
+    property = serializers.PrimaryKeyRelatedField(
+        queryset=Property.objects.all(), write_only=True
+    )
 
     class Meta:
         model = Properties_Bids
@@ -28,9 +32,22 @@ class Properties_BidsSerializer(serializers.ModelSerializer):
         return validate_bid(data, "property")
 
 
+class PropertyImagesSerializer(serializers.ModelSerializer):
+    property = serializers.PrimaryKeyRelatedField(
+        queryset=Property.objects.all(), write_only=True
+    )
+
+    class Meta:
+        model = PropertyImages
+        fields = "__all__"
+
+
 class PropertySerializer(serializers.ModelSerializer, PrefetchedSerializer):
     bids = Properties_BidsSerializer(
         many=True, source="properties_bids_set", read_only=True
+    )
+    images = PropertyImagesSerializer(
+        many=True, source="propertyimages_set", read_only=True
     )
 
     class Meta:
@@ -48,6 +65,9 @@ class Vehicles_BidsSerializer(serializers.ModelSerializer):
         queryset=User.objects.all(),
         default=serializers.CurrentUserDefault(),
         slug_field="username",
+    )
+    vehicle = serializers.PrimaryKeyRelatedField(
+        queryset=Vehicle.objects.all(), write_only=True
     )
 
     class Meta:

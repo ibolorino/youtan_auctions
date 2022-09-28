@@ -2,7 +2,13 @@ from rest_framework import viewsets
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 
-from youtan_auctions.auctions.models import Auction, Bank, Property, Vehicle
+from youtan_auctions.auctions.models import (
+    Auction,
+    Bank,
+    Property,
+    PropertyImages,
+    Vehicle,
+)
 from youtan_auctions.auctions.permissions import IsAdminOrReadOnly
 
 from .actions import BidActions
@@ -10,6 +16,7 @@ from .serializers import (
     AuctionSerializer,
     BankSerializer,
     Properties_BidsSerializer,
+    PropertyImagesSerializer,
     PropertySerializer,
     Vehicles_BidsSerializer,
     VehicleSerializer,
@@ -46,6 +53,12 @@ class PropertyViewSet(viewsets.ModelViewSet):
                 queryset, ["auction"]
             )
         return queryset
+
+
+class PropertyImagesViewSet(viewsets.ModelViewSet):
+    serializer_class = PropertyImagesSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    queryset = PropertyImages.objects.all()
 
 
 class VehicleViewSet(viewsets.ModelViewSet):

@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+from datetime import timedelta
 from pathlib import Path
 
 import environ
@@ -75,6 +76,7 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "rest_framework_simplejwt",
 ]
 
 LOCAL_APPS = [
@@ -273,6 +275,7 @@ SOCIALACCOUNT_FORMS = {"signup": "youtan_auctions.users.forms.UserSocialSignupFo
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
     ),
@@ -295,5 +298,11 @@ SPECTACULAR_SETTINGS = {
         {"url": "https://youtanauctions.com", "description": "Production server"},
     ],
 }
-# Your stuff...
+
+# Simple JWT
 # ------------------------------------------------------------------------------
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+}
