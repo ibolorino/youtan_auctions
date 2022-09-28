@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework.serializers import ValidationError
 
 from youtan_auctions.auctions.models import Properties_Bids, Vehicles_Bids
@@ -14,8 +16,23 @@ def validate_bid(data, auction_item):
     current_bid = auction_item_instance.initial_bid
     if bids:
         current_bid = bids[0].value
+
+    auction_open(auction_item_instance.auction)
+    multiple_bid(current_bid, value, minimum_increment)
+
+    return data
+
+
+def auction_open(auction):
+    auction_date = auction.date
+    if datetime.now().date() > auction_date:
+        raise ValidationError({"auction": "The auction is closed."})
+
+
+def multiple_bid(current_bid, value, minimum_increment):
     if value <= current_bid or (value - current_bid) % minimum_increment != 0:
         raise ValidationError(
-            f"O lance deve ter um incremento múltiplo de R$ {minimum_increment}"
+            {
+                "value": f"The bid must be an increment multiple of R$ {minimum_increment}."
+            }
         )
-    return data

@@ -8,16 +8,18 @@ from youtan_auctions.auctions.models import (
     Property,
     PropertyImages,
     Vehicle,
+    VehicleImages,
 )
 from youtan_auctions.auctions.permissions import IsAdminOrReadOnly
 
-from .actions import BidActions
+from .actions import BidActions, ImageActions
 from .serializers import (
     AuctionSerializer,
     BankSerializer,
     Properties_BidsSerializer,
     PropertyImagesSerializer,
     PropertySerializer,
+    VehicleImagesSerializer,
     Vehicles_BidsSerializer,
     VehicleSerializer,
 )
@@ -55,7 +57,7 @@ class PropertyViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class PropertyImagesViewSet(viewsets.ModelViewSet):
+class PropertyImagesViewSet(ImageActions, viewsets.ModelViewSet):
     serializer_class = PropertyImagesSerializer
     permission_classes = [IsAdminOrReadOnly]
     queryset = PropertyImages.objects.all()
@@ -72,6 +74,12 @@ class VehicleViewSet(viewsets.ModelViewSet):
                 queryset, ["auction"]
             )
         return queryset
+
+
+class VehicleImagesViewSet(ImageActions, viewsets.ModelViewSet):
+    serializer_class = VehicleImagesSerializer
+    permission_classes = [IsAdminOrReadOnly]
+    queryset = VehicleImages.objects.all()
 
 
 class BidViewSet(BidActions, CreateModelMixin, viewsets.GenericViewSet):

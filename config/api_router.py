@@ -7,6 +7,7 @@ from youtan_auctions.auctions.api.views import (
     BidViewSet,
     PropertyImagesViewSet,
     PropertyViewSet,
+    VehicleImagesViewSet,
     VehicleViewSet,
 )
 from youtan_auctions.users.api.views import UserViewSet
@@ -24,6 +25,7 @@ router.register(
     "properties_images", PropertyImagesViewSet, basename="properties_images"
 )
 router.register("vehicles", VehicleViewSet, basename="vehicles")
+router.register("vehicle_images", VehicleImagesViewSet, basename="vehicle_images")
 router.register("bid", BidViewSet, basename="bid")
 
 

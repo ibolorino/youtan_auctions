@@ -21,3 +21,13 @@ class BidActions:
     @action(detail=False, methods=["post"])
     def vehicle(self, request):
         return self.bid(request)
+
+
+class ImageActions:
+    def update(self, request, pk):
+        message = {"detail": 'Method "PUT" not allowed.'}
+        return Response(message, status=405)
+
+    def partial_update(self, request, pk):
+        message = {"detail": 'Method "PATCH" not allowed.'}
+        return Response(message, status=405)

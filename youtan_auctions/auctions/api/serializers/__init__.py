@@ -2,6 +2,7 @@ from .auction_items import (
     Properties_BidsSerializer,
     PropertyImagesSerializer,
     PropertySerializer,
+    VehicleImagesSerializer,
     Vehicles_BidsSerializer,
     VehicleSerializer,
 )

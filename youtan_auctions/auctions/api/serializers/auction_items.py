@@ -7,6 +7,7 @@ from youtan_auctions.auctions.models import (
     Property,
     PropertyImages,
     Vehicle,
+    VehicleImages,
     Vehicles_Bids,
 )
 from youtan_auctions.users.models import User
@@ -76,6 +77,16 @@ class Vehicles_BidsSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         return validate_bid(data, "vehicle")
+
+
+class VehicleImagesSerializer(serializers.ModelSerializer):
+    vehicle = serializers.PrimaryKeyRelatedField(
+        queryset=Vehicle.objects.all(), write_only=True
+    )
+
+    class Meta:
+        model = VehicleImages
+        fields = "__all__"
 
 
 class VehicleSerializer(serializers.ModelSerializer, PrefetchedSerializer):
