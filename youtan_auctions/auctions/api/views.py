@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
+from datetime import datetime
 
 from youtan_auctions.auctions.models import (
     Auction,
@@ -36,12 +37,12 @@ class AuctionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
-        queryset = Auction.objects.all()
+        queryset = Auction.objects.filter(date__gt=datetime.now().date())
         if queryset:
             queryset = self.get_serializer_class().select_related_queryset(
                 queryset, ["bank"]
             )
-        return queryset
+        return queryset.order_by("date")
 
 
 class PropertyViewSet(viewsets.ModelViewSet):
@@ -49,11 +50,14 @@ class PropertyViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
+        auction_id = self.request.query_params.get("auction_id")
         queryset = Property.objects.all()
         if queryset:
             queryset = self.get_serializer_class().select_related_queryset(
                 queryset, ["auction"]
             )
+        if auction_id:
+            queryset = queryset.filter(auction__id=auction_id)
         return queryset
 
 
@@ -68,11 +72,14 @@ class VehicleViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
+        auction_id = self.request.query_params.get("auction_id")
         queryset = Vehicle.objects.all()
         if queryset:
             queryset = self.get_serializer_class().select_related_queryset(
                 queryset, ["auction"]
             )
+        if auction_id:
+            queryset = queryset.filter(auction__id=auction_id)
         return queryset
 
 

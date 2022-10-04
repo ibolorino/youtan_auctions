@@ -1,0 +1,27 @@
+{% load static i18n %}
+
+<!-- place project specific Javascript in this file -->
+<script src="{% static 'js/project.js' %}"></script>
+<!--begin::Global Javascript Bundle(used by all pages)-->
+<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
+<script src="{% static 'js/scripts.bundle.js' %}"></script>
+<!--end::Global Javascript Bundle-->
+
+<script>
+    // Set logged user ID if is logged
+    var userId = '{{ user.id|default:0 }}';
+    $(document).ready(function() {
+      // Set default CSRF header for django ajax requests
+      $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{ csrf_token }}' },
+      });
+
+      // O beforeSend e complete do ajaxSetup são sobrescritos pela requisição específica
+      $( document ).ajaxComplete(function() {
+       toggleLoading();
+      });
+      $( document ).ajaxSend(function() {
+        toggleLoading();
+      });
+    });
+</script>

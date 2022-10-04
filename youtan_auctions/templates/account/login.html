@@ -1,59 +1,78 @@
+<!-- prettier-ignore -->
 {% extends "account/base.html" %}
+{% load account bootstrap static %}
 
-{% load i18n %}
-{% load account socialaccount %}
-{% load crispy_forms_tags %}
+{% block head_title %}Youtan Auctions - Login{% endblock head_title %}
 
-{% block head_title %}{% translate "Sign In" %}{% endblock %}
+{% block css %}
+<style>
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
 
-{% block inner %}
+  .form-group label {
+    font-size: 1.075rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem;
+  }
 
-<h1>{% translate "Sign In" %}</h1>
+  .has-error .help-block {
+    color: var(--bs-danger);
+  }
 
-{% get_providers as socialaccount_providers %}
+  .has-error input {
+    border-color: var(--bs-danger) !important;
+  }
 
-{% if socialaccount_providers %}
-  <p>
-    {% translate "Please sign in with one of your existing third party accounts:" %}
-    {% if ACCOUNT_ALLOW_REGISTRATION %}
-      {% blocktranslate trimmed %}
-        Or, <a href="{{ signup_url }}">sign up</a>
-        for a {{ site_name }} account and sign in below:
-      {% endblocktranslate %}
+  .alert.alert-danger {
+    text-align: center;
+    padding: 1rem 0.8rem;
+  }
+  .alert.alert-danger a {
+    display: none;
+  }
+</style>
+{% endblock %}
+<!-- prettier-ignore -->
+{% block content %}
+<!--begin::Logo-->
+<a href="/" class="mb-12">
+  <img alt="Youtan" src="{% static 'images/logo.png'%}" class="h-40px" />
+</a>
+<!--end::Logo-->
+<!--begin::Wrapper-->
+<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+  <!--begin::Form-->
+  <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="POST" action="{% url 'account_login' %}">
+    <!--begin::Heading-->
+    <div class="text-center mb-10">
+      <!--begin::Title-->
+      <h1 class="text-dark mb-3">Entrar no <span class="text-primary">Youtan Auctions</span></h1>
+      <!--end::Title-->
+    </div>
+    <!--begin::Heading-->
+    <!-- prettier-ignore -->
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
     {% endif %}
-  </p>
 
-  <div class="socialaccount_ballot">
-
-    <ul class="socialaccount_providers">
-      {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-    </ul>
-
-    <div class="login-or">{% translate "or" %}</div>
-
-  </div>
-
-  {% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-  {% if ACCOUNT_ALLOW_REGISTRATION %}
-    <p>
-      {% blocktranslate trimmed %}
-        If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.
-      {% endblocktranslate %}
-    </p>
-  {% endif %}
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% translate "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% translate "Sign In" %}</button>
-</form>
-
+    <!--begin::Actions-->
+    <div class="text-center">
+      <!--begin::Submit button-->
+      <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100">
+        <span class="indicator-label">Entrar</span>
+        <span class="indicator-progress">
+          Please wait...
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </button>
+      <!--end::Submit button-->
+    </div>
+    <!--end::Actions-->
+  </form>
+  <!--end::Form-->
+</div>
+<!--end::Wrapper-->
 {% endblock %}

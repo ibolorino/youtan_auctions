@@ -1,0 +1,59 @@
+{% load custom_tags %}
+
+{% with total=page_obj.paginator.num_pages current=page_obj.number %}
+    <ul class="pagination">
+        {% if current|add:-1 > 0 %}
+        <li class="paginate_button page-item previous">
+            <a href="?{% param_replace page=1 %}" class="page-link"><i class="fa-solid fa-angles-left"></i></a>
+        </li>
+        <li class="paginate_button page-item previous">
+            <a href="?{% param_replace page=current|add:-1 %}" class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+        </li>
+        {% else %}
+            <li class="paginate_button page-item previous disabled">
+                <a href="#" class="page-link"><i class="fa-solid fa-angles-left"></i></a>
+            </li>
+            <li class="paginate_button page-item previous disabled">
+                <a href="#" class="page-link"><i class="fa-solid fa-angle-left"></i></a>
+            </li>
+        {% endif %}
+        {% if current|add:-2 > 0%}
+            <li class="paginate_button page-item ">
+                <a href="?{% param_replace page=current|add:-2 %}" class="page-link">{{ current|add:-2 }}</a>
+            </li>
+        {% endif %}
+        {% if current|add:-1 > 0%}
+            <li class="paginate_button page-item ">
+                <a href="?{% param_replace page=current|add:-1 %}" class="page-link">{{ current|add:-1 }}</a>
+            </li>
+        {% endif %}
+        <li class="paginate_button page-item active">
+            <a href="#" class="page-link">{{ current }}</a>
+        </li>
+        {% if current|add:1 <= total%}
+            <li class="paginate_button page-item ">
+                <a href="?{% param_replace page=current|add:1 %}" class="page-link">{{ current|add:1 }}</a>
+            </li>
+        {% endif %}
+        {% if current|add:2 <= total%}
+            <li class="paginate_button page-item ">
+                <a href="?{% param_replace page=current|add:2 %}" class="page-link">{{ current|add:2 }}</a>
+            </li>
+        {% endif %}
+        {% if current|add:1 <= total%}
+        <li class="paginate_button page-item next">
+            <a href="?{% param_replace page=current|add:1 %}" class="page-link"><i class="fa-solid fa-angle-right"></i></a>
+        </li>
+        <li class="paginate_button page-item next">
+            <a href="?{% param_replace page=total %}" class="page-link"><i class="fa-solid fa-angles-right"></i></a>
+        </li>
+        {% else %}
+            <li class="paginate_button page-item next disabled">
+                <a href="#" class="page-link"><i class="fa-solid fa-angle-right"></i></a>
+            </li>
+            <li class="paginate_button page-item next disabled">
+                <a href="#" class="page-link"><i class="fa-solid fa-angles-right"></i></a>
+            </li>
+        {% endif %}
+    </ul>
+{% endwith %}

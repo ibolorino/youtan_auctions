@@ -1,19 +1,31 @@
+<!-- prettier-ignore -->
 {% extends "account/base.html" %}
+{% load static %}
 
-{% load i18n %}
+{% block head_title %}Youtan Auctions - Sair{% endblock head_title %}
 
-{% block head_title %}{% translate "Sign Out" %}{% endblock %}
+{% block content %}
+<!--begin::Logo-->
+<a href="/" class="mb-12">
+  <img alt="Youtan" src="{% static 'images/logo.png'%}" class="h-40px" />
+</a>
+<!--end::Logo-->
+<!--begin::Wrapper-->
+<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+  <!--begin::Form-->
+  <h3 class="text-center mb-6">Tem certeza que deseja sair?</h3>
+  <form method="post" action="{% url 'account_logout' %}">
+    <!-- prettier-ignore -->
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
 
-{% block inner %}
-<h1>{% translate "Sign Out" %}</h1>
-
-<p>{% translate 'Are you sure you want to sign out?' %}</p>
-
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <button class="btn btn-danger" type="submit">{% translate 'Sign Out' %}</button>
-</form>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-danger" type="submit">Sair</button>
+    </div>
+  </form>
+  <!--end::Form-->
+</div>
+<!--end::Wrapper-->
 {% endblock %}

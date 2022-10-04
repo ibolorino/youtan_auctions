@@ -1,9 +1,23 @@
-{% extends "base.html" %}
-
-{% block title %}Forbidden (403){% endblock %}
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
+{% block head_title %}Youtan Auctions - {% block title %}Sem permissão{% endblock title %}{% endblock head_title %}
 
 {% block content %}
-<h1>Forbidden (403)</h1>
-
-<p>{% if exception %}{{ exception }}{% else %}You're not allowed to access this page.{% endif %}</p>
+<!--begin::Authentication - 403 Page-->
+<div class="d-flex flex-column flex-center flex-column-fluid p-10">
+  <!--begin::Illustration-->
+  <img
+    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzUycHQiIGhlaWdodD0iNzUycHQiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc1MiA3NTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8Zz4KICA8cGF0aCBkPSJtNTQwLjM0IDI0MS4wM2MtMTE1LjA4LTExLjg0LTE0OC4yMy03OC4xNDEtMTQ5LjY1LTgwLjk4NC0yLjgzOTgtNS42ODM2LTguMDUwOC04Ljk5NjEtMTQuMjA3LTguOTk2MXMtMTEuODQgMy43ODkxLTE0LjIwNyA4Ljk5NjFjLTEuODk0NSAyLjg0MzgtMzUuNTIgNjkuMTQ1LTE1MC42IDgwLjk4NC04LjA1MDggMC45NDUzMS0xNC4yMDcgNy41NzgxLTE0LjIwNyAxNi4xMDJ2MTE2LjAzYzAgMTM2LjM5IDE2NC4zMyAyMjIuNTggMTcxLjQ0IDIyNi4zNyAyLjM2NzIgMC45NDUzMSA0LjczNDQgMS44OTQ1IDcuMTA1NSAxLjg5NDUgMi4zNjcyIDAgNS4yMTA5LTAuNDcyNjYgNy4xMDU1LTEuODk0NSA3LjEwNTUtMy43ODkxIDE3MS40NC04OS41MDggMTcxLjQ0LTIyNi4zN2wtMC4wMDM5MDYtMTE2LjVjMC40NzI2Ni04LjA1MDgtNi4xNTYyLTE0LjY4NC0xNC4yMDctMTUuNjI5em0tMTcuNTIzIDEzMi4xM2MwIDEwMS44Mi0xMTYuMDMgMTc1LjctMTQ2LjgxIDE5My43LTMwLjc4NS0xNy45OTYtMTQ2LjgxLTkxLjQwMi0xNDYuODEtMTkzLjd2LTEwMi4yOWM4Mi44NzUtMTEuODQgMTI2LjQ1LTUwLjY3MiAxNDYuODEtNzUuMzAxIDIwLjM2MyAyNC42MjUgNjMuOTM0IDYzLjQ2MSAxNDYuODEgNzUuMzAxeiIvPgogIDxwYXRoIGQ9Im0zMTQuNDQgMzIzLjQzYzAgMjguNDE0IDE5LjQxOCA1Mi4wOTQgNDUuNDY1IDU5LjE5OXYxMTQuMTNjMCA4Ljk5NjEgNy4xMDU1IDE2LjEwMiAxNi4xMDIgMTYuMTAyczE2LjEwMi03LjEwNTUgMTYuMTAyLTE2LjEwMnYtMTcuOTk2aDE5Ljg5MWM4Ljk5NjEgMCAxNi4xMDItNy4xMDU1IDE2LjEwMi0xNi4xMDIgMC04Ljk5NjEtNy4xMDU1LTE2LjEwMi0xNi4xMDItMTYuMTAyaC0xOS44OTFsLTAuMDAzOTA3LTYzLjkzNGMyNi4wNDctNy4xMDU1IDQ1LjQ2NS0zMC43ODEgNDUuNDY1LTU5LjE5OSAwLTM0LjA5OC0yNy40NjktNjEuNTY2LTYxLjU2Ni02MS41NjYtMzQuMDk4IDAuNDc2NTYtNjEuNTYyIDI3Ljk0MS02MS41NjIgNjEuNTY2em05MC45MjYgMGMwIDE2LjEwMi0xMy4yNjIgMjkuMzYzLTI5LjM2MyAyOS4zNjNzLTI5LjM2My0xMy4yNjItMjkuMzYzLTI5LjM2M2MwLTE2LjEwMiAxMy4yNjItMjkuMzYzIDI5LjM2My0yOS4zNjNzMjkuMzYzIDEzLjI2MiAyOS4zNjMgMjkuMzYzeiIvPgogPC9nPgo8L3N2Zz4K"
+    alt="403"
+    class="mw-100 mb-10 h-lg-450px" />
+  <!--end::Illustration-->
+  <!--begin::Message-->
+  <h1 class="fw-bold mb-10" style="color: #a3a3c7">403 - Sem permissão</h1>
+  <p class="fw-bold mb-10">Usuário sem permissão para acessar o conteúdo da página.</p>
+  <!--end::Message-->
+  <!--begin::Link-->
+  <a href="/" class="btn btn-primary">Voltar à página inicial</a>
+  <!--end::Link-->
+</div>
+<!--end::Authentication - 403 Page-->
 {% endblock content %}

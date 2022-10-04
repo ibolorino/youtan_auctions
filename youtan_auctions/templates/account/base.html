@@ -1,10 +1,52 @@
-{% extends "base.html" %}
-{% block title %}{% block head_title %}{% endblock head_title %}{% endblock title %}
+<!-- prettier-ignore -->
+{% load static i18n %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block head_title %}Youtan Auctions{% endblock head_title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Youtan Auctions" />
+    <meta name="author" content="Ivan Bolorino" />
 
-{% block content %}
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    {% block inner %}{% endblock %}
-  </div>
-</div>
-{% endblock %}
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+    <!--end::Fonts-->
+
+    <!--begin::Global Stylesheets Bundle(used by all pages)-->
+    <link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+    {% block css %} {% endblock %}
+
+    <!-- prettier-ignore -->
+    {% block javascript %}
+    <!--begin::Global Javascript Bundle(used by all pages)-->
+    <script defer src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
+    <script defer src="{% static 'js/scripts.bundle.js' %}"></script>
+    <!--end::Global Javascript Bundle-->
+    {% endblock javascript %}
+  </head>
+
+  <body id="kt_body" class="bg-body">
+    <!--begin::Main-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root">
+      <!--begin::Page-->
+      <div class="d-flex flex-column flex-column-fluid">
+        <!--begin::Content-->
+        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+          {% block content %}{% endblock content %}
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Page-->
+    </div>
+    <!--end::Root-->
+    <!--end::Main-->
+  </body>
+</html>
