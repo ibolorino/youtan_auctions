@@ -93,6 +93,9 @@ class VehicleSerializer(serializers.ModelSerializer, PrefetchedSerializer):
     bids = Vehicles_BidsSerializer(
         many=True, source="vehicles_bids_set", read_only=True
     )
+    images = VehicleImagesSerializer(
+        many=True, source="vehicleimages_set", read_only=True
+    )
 
     class Meta:
         model = Vehicle

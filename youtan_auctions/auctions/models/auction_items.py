@@ -15,7 +15,7 @@ class Property(models.Model):
     initial_bid = models.DecimalField("Lance inicial", max_digits=20, decimal_places=2)
     origin = models.CharField("Origem", max_length=255)
     status = models.CharField("Situação", max_length=255)
-    area = models.FloatField("Área")
+    area = models.FloatField("Área (m²)")
     debtis = models.BooleanField("Há débitos")
     observation = models.TextField("Observações")
     address = models.CharField("Endereço", max_length=255)

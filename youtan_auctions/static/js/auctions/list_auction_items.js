@@ -56,14 +56,21 @@ $(document).ready(function(){
         function itemBody() {
             let itemBody = document.createElement('div');
             let currentBid = item.bids.length > 0 ? item.bids[0].value : item.initial_bid;
+            let divImgAttrs = {
+                innerHTML: `<img src="${item.images[0].image}" style="width:100%">`,
+                onclick: function() {setImagesModal(item)}
+            }
+            let divImg = new DomElement('div', divImgAttrs).get();
+            divImg.style.cssText += 'cursor: pointer;';
+            itemBody.appendChild(divImg);
             itemBody.className = 'card-body px-1';
-            itemBody.innerHTML = `
+            itemBody.insertAdjacentHTML('beforeend', `
                 <div>
                     <p class="mb-0"><b>Lance inicial: </b>${currency(item.initial_bid)}</p>
                     <p class="mb-0"><b>Incremento: </b>${currency(item.minimum_increment)}</p>
                     <h6 class="mb-0 mt-3"><b>Lance atual: </b>${currency(currentBid)}</h6>
                 </div>
-            `;
+            `);
             itemBody.appendChild(itemActions())
             return itemBody;
         };
@@ -102,7 +109,7 @@ $(document).ready(function(){
 
         function setViewBidsModal(item) {
             let btnSave = document.getElementById('btn-save-bid');
-            btnSave.remove();
+            if (btnSave) btnSave.remove();
 
             $("#modal-title").html(item.name);
             bids = "<h4>Nenhum lance efetuado.</h4>";
@@ -186,6 +193,37 @@ $(document).ready(function(){
             btnSave.onclick = sendBid;
             modalFooter.appendChild(btnSave);
 
+            $("#item-bid-modal").modal("show");
+        };
+
+        function setImagesModal(item) {
+            let btnSave = document.getElementById('btn-save-bid');
+            if (btnSave) btnSave.remove();
+            $("#modal-title").html(item.name);
+            let carouselIndicators = '';
+            let carouselImages = '';
+            item.images.forEach(function (image, i) {
+                carouselIndicators += `<li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="${i}" class="ms-1 ${i==0 ? ' active' : '' }"></li>`;
+                carouselImages += `
+                <div class="carousel-item ${i==0 ? ' active' : '' }" style="max-height: 100%">
+                    <img src="${image.image}" style="max-height: 100%; max-width: 100%">
+                </div>
+                `
+            });
+            let modalBody = `
+            <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <span class="fs-4 fw-bold pe-2"></span>
+                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                        ${carouselIndicators}
+                    </ol>
+                </div>
+                <div class="carousel-inner pt-8">
+                    ${carouselImages}
+                </div>
+            </div>
+            `;
+            $("#modal-body").html(modalBody);
             $("#item-bid-modal").modal("show");
         }
     }

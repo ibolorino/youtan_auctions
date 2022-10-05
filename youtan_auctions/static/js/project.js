@@ -217,3 +217,21 @@ const currency = (v) => {
         return `-`;
     }
 }
+
+
+class DomElement {
+    constructor(type, args=null) {
+        this.type = type;
+        this.args = args;
+    }
+
+    get() {
+        let element = document.createElement(this.type);
+        if (this.args != null) {
+            for (const [key, value] of Object.entries(this.args)) {
+                element[key] = value;
+            };
+        }
+        return element;
+    }
+}

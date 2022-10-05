@@ -43,7 +43,7 @@ $(document).ready(function(){
             let auctionHeader = document.createElement('div');
             auctionHeader.className = 'card-header';
             auctionHeader.innerHTML = `<h3 class="card-title">${auction.name}</h3>`;
-            auctionHeader.appendChild(adminControls());
+            if (isAdmin) auctionHeader.appendChild(adminControls());
             return auctionHeader;
         }
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
             let auctionBody = document.createElement('div');
             auctionBody.className = 'card-body';
             auctionBody.innerHTML = `<p><b>Data final: </b>${convertDate(auction.date)}</p>
-            <a href="#" class="btn btn-sm w-100 btn-primary">Ver Items</a>`;
+            <a href="/auctions/${auction.id}/items/" class="btn btn-sm w-100 btn-primary">Ver Items</a>`;
             return auctionBody;
         }
 
@@ -98,24 +98,5 @@ $(document).ready(function(){
 
 
     };
-
-    const getAdminControls = (id) => {
-        let adminControls = '';
-        if (isAdmin == true) {
-            adminControls = `
-            <a href="/auctions/${id}/update/" id="edit-auction-btn""><i class="fa-regular fa-pen-to-square text-primary"></i></a>
-            <a href="#" onclick="myFunction()" id="delete-auction-btn" data-id="${id}"><i class="fa-solid fa-trash text-primary"></i></a>
-            `
-        };
-        return adminControls;
-    };
-
-    function myFunction() {
-        console.log("clickou")
-    }
-
-    $("#edit-auction-btn").click(function(){
-        console.log("click")
-    })
 
 });

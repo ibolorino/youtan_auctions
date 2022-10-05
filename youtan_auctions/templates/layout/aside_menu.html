@@ -25,20 +25,61 @@
 				<span class="menu-icon">
 					<i class="bi bi-arrow-return-right fs-2"></i>
 				</span>
+				<span class="menu-title">Items</span>
+				<span class="menu-arrow"></span>
+			</span>
+			{% if user.is_superuser %}
+			<div class="menu-sub menu-sub-accordion menu-active-bg">
+				<div class="menu-item">
+					<a class="menu-link" href="{% url 'auctions:create-property' %}">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Cadastrar Propriedade</span>
+					</a>
+				</div>
+			</div>
+			<div class="menu-sub menu-sub-accordion menu-active-bg">
+				<div class="menu-item">
+					<a class="menu-link" href="{% url 'auctions:create-vehicle' %}">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Cadastrar Veículo</span>
+					</a>
+				</div>
+			</div>
+			{% endif %}
+			<div class="menu-sub menu-sub-accordion menu-active-bg">
+				<div class="menu-item">
+					<a class="menu-link" href="{% url 'auctions:list-items' %}">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Ver Itens</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+			<span class="menu-link">
+				<span class="menu-icon">
+					<i class="bi bi-arrow-return-right fs-2"></i>
+				</span>
 				<span class="menu-title">Leilões</span>
 				<span class="menu-arrow"></span>
 			</span>
 			{% if user.is_superuser %}
-				<div class="menu-sub menu-sub-accordion menu-active-bg">
-					<div class="menu-item">
-						<a class="menu-link" href="{% url 'auctions:create-auction' %}">
-							<span class="menu-bullet">
-								<span class="bullet bullet-dot"></span>
-							</span>
-							<span class="menu-title">Novo Leilão</span>
-						</a>
-					</div>
+			<div class="menu-sub menu-sub-accordion menu-active-bg">
+				<div class="menu-item">
+					<a class="menu-link" href="{% url 'auctions:create-auction' %}">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Novo Leilão</span>
+					</a>
 				</div>
+			</div>
 			{% endif %}
 			<div class="menu-sub menu-sub-accordion menu-active-bg">
 				<div class="menu-item">

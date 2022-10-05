@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}{{ property.name }}{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">{{ property.name }}</h3>
+        </div>
+        <div class="card-body" id="property_detail_div">
+            {% if images %}
+                <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                        <span class="fs-4 fw-bold pe-2"></span>
+                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                            {% for image in images %}
+                                <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="{{ forloop.counter0 }}" class="ms-1{% if forloop.first %} active{% endif %}"></li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                    <div class="carousel-inner pt-8">
+                        {% for image in images %}
+                        <div class="carousel-item {% if forloop.first %} active{% endif %}" style="height: 200px">
+                            <a href="{{ image.image.url }}" target="_blank">
+                                <img src="{{ image.image.url }}" style="max-height: 100%; max-width: 100%">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            </div>
+            <h3>Leilão</h3>
+            <p>{{ property.auction.name }}</p>
+            <h3>Tipo de imóvel</h3>
+            <p>{{ property.property_type }}</p>
+            <h3>Origem</h3>
+            <p>{{ property.origin }}</p>
+            <h3>Situação</h3>
+            <p>{{ property.status }}</p>
+            <h3>Área</h3>
+            <p>{{ property.area }}m²</p>
+            <h3>Débitos</h3>
+            <p>{{ property.debtis|yesno:"Sim,Não" }}</p>
+            <h3>Observações</h3>
+            <p>{{ property.observation }}</p>
+            <h3>Endereço</h3>
+            <p>{{ property.address }} - {{ property.city }}/{{ property.state }}. CEP {{ property.zip_code }}.</p>
+            
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+{% endblock footer_javascript%}
