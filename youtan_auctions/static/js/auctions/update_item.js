@@ -2,8 +2,10 @@ $(document).ready(function(){
     let itemId = $("#submit-button").data("id");
     let updateAuctionUrl = `http://localhost:8000/api/v1/${itemType}/${itemId}/`;
     let itemForm = $("#form_update_item");
-    let totalImages = document.getElementById('tbody_images').children.length;
+    let totalImages = document.getElementById('tbody_images') != null ? document.getElementById('tbody_images').children.length : 0;
     let divImages = document.getElementById('div_photos');
+
+    $('#id_images').prop('required',false);
 
     itemForm.submit(function(e){
         e.preventDefault();
@@ -20,6 +22,8 @@ $(document).ready(function(){
             processData: false,
             success: function() {
                 createAlert('success', `Item atualizado com sucesso`);
+                let images = itemForm.prop('images').files;
+                if (images.length > 0) uploadImages();
             },
             error: function(error) {
                 if (error.status == 400) {
@@ -50,12 +54,43 @@ $(document).ready(function(){
                 row.remove();
                 totalImages -= 1;
                 if (totalImages == 0) {
-                    divImages.innerHTML = "<h4>Nenhuma foto cadastrada.<h4>";
+                    divImages.innerHTML = "<p>Nenhuma foto cadastrada</p>";
                 };
             },
             error: function(error) {
                 createAlert('error', `${error.responseText}`);
             }
         });
-    }
+    };
+
+    $('#btn-teste').click(function(){
+        uploadImages();
+    })
+
+    const uploadImages = () => {
+        let imgUrl = `http://localhost:8000/api/v1/${itemType}_images/`;
+        images = itemForm.prop('images').files;
+        for (let i=0; i<images.length; i++) {
+            let image = images.item(i);
+            let data = new FormData();
+            data.append("image", image);
+            data.append(itemType == 'vehicles' ? 'vehicle': 'property', itemId);
+            $.ajax({
+                url: imgUrl,
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    createAlert('success', `Imagem associada com sucesso`);
+                    totalImages += 1;
+                },
+                error: function(error) {
+                    createAlert('error', `${error.responseText}`);
+                }
+            });
+        };
+        location.reload(true);
+    };
+
 });

@@ -51,6 +51,7 @@
 {% block footer_javascript %}
     <script>
         var itemType = "{{ item_type }}";
+        var itemId = "{{ object_id }}";
     </script>
     <script src="{% static  'js/auctions/update_item.js' %}"></script>
 {% endblock footer_javascript%}

@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    let createAuctionUrl = 'http://localhost:8000/api/v1/auctions/';
-    let auctionForm = $("#form_create_auction");
+    let createAuctionUrl = 'http://localhost:8000/api/v1/banks/';
+    let auctionForm = $("#form_create_bank");
 
     auctionForm.submit(function(e){
         e.preventDefault();
@@ -16,7 +16,7 @@ $(document).ready(function(){
             dataType: 'json',
             processData: false,
             success: function() {
-                createAlert('success', `Leilão criado com sucesso`);
+                createAlert('success', `Instituição Financeira criada com sucesso`);
                 auctionForm.trigger("reset");
                 $('select', auctionForm).trigger("change");
             },

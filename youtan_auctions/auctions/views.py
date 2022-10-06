@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView, DetailView
-from .forms import AuctionForm, PropertyForm, VehicleForm
+from .forms import AuctionForm, PropertyForm, VehicleForm, BankForm
 from .mixins import AdminMixin
 from .models import Auction, Property, Vehicle
 
@@ -113,6 +113,15 @@ class UpdateVehicleView(AdminMixin, DetailView):
         return context
 
 
+class CreateBankView(AdminMixin, TemplateView):
+    template_name = "auctions/create_bank.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = BankForm()
+        return context
+
+
 
 home_page = HomePageView.as_view()
 auctions_list_view = AuctionsListView.as_view()
@@ -127,3 +136,5 @@ property_update_view = UpdatePropertyView.as_view()
 vehicle_detail_view = VehicleDetailViel.as_view()
 vehicle_create_view = CreateVehicleView.as_view()
 vehicle_update_view = UpdateVehicleView.as_view()
+
+bank_create_view = CreateBankView.as_view()

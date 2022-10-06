@@ -21,6 +21,27 @@
       </div>
     </div>
 		<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+			{% if user.is_superuser %}
+			<span class="menu-link">
+				<span class="menu-icon">
+					<i class="bi bi-arrow-return-right fs-2"></i>
+				</span>
+				<span class="menu-title">Instituições Financeiras</span>
+				<span class="menu-arrow"></span>
+			</span>
+			<div class="menu-sub menu-sub-accordion menu-active-bg">
+				<div class="menu-item">
+					<a class="menu-link" href="{% url 'auctions:create-bank' %}">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Cadastrar Instituição</span>
+					</a>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 			<span class="menu-link">
 				<span class="menu-icon">
 					<i class="bi bi-arrow-return-right fs-2"></i>
@@ -76,7 +97,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title">Novo Leilão</span>
+						<span class="menu-title">Cadastrar Leilão</span>
 					</a>
 				</div>
 			</div>
