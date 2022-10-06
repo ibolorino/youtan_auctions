@@ -18,7 +18,7 @@ $(document).ready(function(){
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);
+                uploadImages(formData, response.id);
                 createAlert('success', `Propriedade criado com sucesso`);
                 auctionForm.trigger("reset");
                 $('select', auctionForm).trigger("change");
@@ -33,6 +33,28 @@ $(document).ready(function(){
                     createAlert('error', `${error.responseText}`);
                 }
             }
+        });
+    }
+
+    function uploadImages(formData, id) {
+        let imgUrl = 'http://localhost:8000/api/v1/properties_images/'
+        formData.getAll('images').map( image => {
+            let data = new FormData();
+            data.append("image", image);
+            data.append("property", id);
+            $.ajax({
+                url: imgUrl,
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    createAlert('success', `Imagem associada com sucesso`);
+                },
+                error: function(error) {
+                    createAlert('error', `${error.responseText}`);
+                }
+            })
         });
     }
 

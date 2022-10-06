@@ -13,7 +13,6 @@ $(document).ready(function(){
             url: createAuctionUrl,
             method: 'POST',
             data: formData,
-            dataType: 'json',
             cache: false,
             dataType: 'json',
             processData: false,
