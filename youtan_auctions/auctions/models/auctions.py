@@ -11,7 +11,7 @@ class Auction(models.Model):
     state = models.CharField("Estado", max_length=255)
     zip_code = models.CharField("CEP", max_length=15)
     bank = models.ForeignKey(
-        Bank, verbose_name="Instituição Financeira", on_delete=models.DO_NOTHING
+        Bank, verbose_name="Instituição Financeira", on_delete=models.CASCADE
     )
 
     class Meta:

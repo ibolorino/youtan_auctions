@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 from youtan_auctions.auctions.utils import get_image_path
 from youtan_auctions.users.models import User
@@ -70,7 +71,7 @@ class Vehicle(models.Model):
     initial_bid = models.DecimalField("Lance inicial", max_digits=20, decimal_places=2)
     origin = models.CharField("Origem", max_length=255)
     mileage = models.IntegerField("Quilometragem")
-    plate = models.CharField("Placa", max_length=7)
+    plate = models.CharField("Placa", max_length=7, validators=[MinLengthValidator(7)])
     transmission = models.CharField("Câmbio", max_length=255)
     brand = models.CharField("Marca", max_length=255)
     model = models.CharField("Modelo", max_length=255)

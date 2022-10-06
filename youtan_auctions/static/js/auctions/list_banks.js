@@ -21,7 +21,22 @@ $(document).ready(function(){
 
     const banksTable = (banks) => {
         const deleteBankCallback = (id, row) => {
-            row.remove();
+            let delteBankUrl = `http://localhost:8000/api/v1/banks/${id}/`
+            $.ajax({
+                url: delteBankUrl,
+                method: 'DELETE',
+                success: function(response) {
+                    createAlert('success', `Instituição Financeira excluída com sucesso`);
+                    row.remove();
+                    totalBanks -= 1;
+                    if (totalBanks == 0) {
+                        divBanks.innerHTML = "<h4>Nenhuma Instituição Financeira cadastrada.<h4>";
+                    };
+                },
+                error: function(error) {
+                    createAlert('error', `${error.responseText}`);
+                }
+            });
         }
 
         let banksTable = new DomElement('table').get();

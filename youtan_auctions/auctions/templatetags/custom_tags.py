@@ -16,3 +16,8 @@ def add_form_classes(form_field):
     else:
         widget_classes.add("form-control")
     return form_field.as_widget(attrs={"class": " ".join(widget_classes)})
+
+
+@register.filter("hidden_plate")
+def hidden_plate(plate):
+    return f"{plate[0]}****{plate[-2:]}"

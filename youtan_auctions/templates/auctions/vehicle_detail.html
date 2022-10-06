@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load custom_tags %}
+
 {% load bootstrap %}
 
 {% block head_title %}Youtan Auctions - {% block title %}{{ vehicle.name }}{% endblock title %}{% endblock head_title %}
@@ -46,7 +48,7 @@
             <h3>Ano</h3>
             <p>{{ vehicle.year }}</p>
             <h3>Quilometragem</h3>
-            <p>{{ vehicle.mileage }}km</p>
+            <p>{{ vehicle.mileage }} km</p>
             <h3>Câmbio</h3>
             <p>{{ vehicle.transmission }}</p>
             <h3>Combustível</h3>
@@ -54,7 +56,7 @@
             <h3>Origem</h3>
             <p>{{ vehicle.origin }}</p>
             <h3>Placa</h3>
-            <p>{{ vehicle.plate }}</p>
+            <p>{% if user.is_superuser %}{{ vehicle.plate }}{% else %}{{ vehicle.plate|hidden_plate }}{% endif %}</p>
             <h3>Observações</h3>
             <p>{{ vehicle.observation }}</p>
         </div>

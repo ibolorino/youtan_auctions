@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from youtan_auctions.auctions.templatetags.custom_tags import hidden_plate
+
 from youtan_auctions.auctions.api.validators import validate_bid
 from youtan_auctions.auctions.mixins import PrefetchedSerializer
 from youtan_auctions.auctions.models import (
@@ -104,4 +106,7 @@ class VehicleSerializer(serializers.ModelSerializer, PrefetchedSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data["auction"] = AuctionSerializer(instance.auction).data
+        user = self.context["request"].user
+        if not user.is_superuser:
+            data["plate"] = hidden_plate(instance.plate)
         return data
