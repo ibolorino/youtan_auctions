@@ -59,7 +59,7 @@ $(document).ready(function(){
             `;
             let cell = new DomElement('td').get();
             if (isAdmin) {
-                cell.insertAdjacentHTML('beforeend', `<a href="/bankks/${bank.id}/update/"><i class="ms-2 fa-regular fa-pen-to-square"></i></a>`);
+                cell.insertAdjacentHTML('beforeend', `<a href="/banks/${bank.id}/update/"><i class="ms-2 fa-regular fa-pen-to-square"></i></a>`);
                 let deleteButtonArgs = {
                     className: 'ms-2',
                     href: '#',

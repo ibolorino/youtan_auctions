@@ -15,6 +15,7 @@ from .views import (
     vehicle_detail_view,
     bank_create_view,
     bank_list_view,
+    bank_update_view,
 )
 
 app_name = "auctions"
@@ -38,4 +39,5 @@ urlpatterns = [
     path("vehicles/<int:pk>/update/", vehicle_update_view, name="update-vehicle"),
     path("banks/", bank_list_view, name="list-banks"),
     path("banks/create/", bank_create_view, name="create-bank"),
+    path("banks/<int:pk>/update/", bank_update_view, name="update_bank"),
 ]

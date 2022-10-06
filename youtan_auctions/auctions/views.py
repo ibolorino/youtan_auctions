@@ -12,7 +12,7 @@ class AuctionsListView(TemplateView):
     template_name = "auctions/list_auctions.html"
 
 
-class CreateAuctionView(AdminMixin, TemplateView):
+class AuctionCreateView(AdminMixin, TemplateView):
     template_name = "auctions/create_auction.html"
     
     def get_context_data(self, **kwargs):
@@ -21,7 +21,7 @@ class CreateAuctionView(AdminMixin, TemplateView):
         return context
 
 
-class UpdateAuctionView(AdminMixin, DetailView):
+class AuctionUpdateView(AdminMixin, DetailView):
     template_name = "auctions/update_auction.html"
     model = Auction
 
@@ -43,7 +43,7 @@ class AllItemsListView(TemplateView):
     template_name = "auctions/list_all_items.html"
 
 
-class CreatePropertyView(AdminMixin, TemplateView):
+class PropertyCreateView(AdminMixin, TemplateView):
     template_name = "auctions/create_property.html"
 
     def get_context_data(self, **kwargs):
@@ -64,7 +64,7 @@ class PropertyDetailViel(DetailView):
         return context
 
 
-class UpdatePropertyView(AdminMixin, DetailView):
+class PropertyUpdateView(AdminMixin, DetailView):
     template_name = "auctions/update_item.html"
     model = Property
 
@@ -78,7 +78,7 @@ class UpdatePropertyView(AdminMixin, DetailView):
         return context
 
 
-class CreateVehicleView(AdminMixin, TemplateView):
+class VehicleCreateView(AdminMixin, TemplateView):
     template_name = "auctions/create_vehicle.html"
 
     def get_context_data(self, **kwargs):
@@ -99,7 +99,7 @@ class VehicleDetailViel(DetailView):
         return context
 
 
-class UpdateVehicleView(AdminMixin, DetailView):
+class VehicleUpdateView(AdminMixin, DetailView):
     template_name = "auctions/update_item.html"
     model = Vehicle
 
@@ -113,12 +113,23 @@ class UpdateVehicleView(AdminMixin, DetailView):
         return context
 
 
-class CreateBankView(AdminMixin, TemplateView):
+class BankCreateView(AdminMixin, TemplateView):
     template_name = "auctions/create_bank.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = BankForm()
+        return context
+
+class BankUpdateView(AdminMixin, DetailView):
+    template_name = "auctions/update_bank.html"
+    model = Bank
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = BankForm(instance=instance)
+        context['object_id'] = instance.id
         return context
 
 
@@ -128,17 +139,18 @@ class BankListView(AdminMixin, TemplateView):
 
 home_page = HomePageView.as_view()
 auctions_list_view = AuctionsListView.as_view()
-auctions_create_view = CreateAuctionView.as_view()
-auctions_update_view = UpdateAuctionView.as_view()
+auctions_create_view = AuctionCreateView.as_view()
+auctions_update_view = AuctionUpdateView.as_view()
 
 auctions_items_list_view = AuctionItemsListView.as_view()
 all_items_list_view = AllItemsListView.as_view()
 property_detail_view = PropertyDetailViel.as_view()
-property_create_view = CreatePropertyView.as_view()
-property_update_view = UpdatePropertyView.as_view()
+property_create_view = PropertyCreateView.as_view()
+property_update_view = PropertyUpdateView.as_view()
 vehicle_detail_view = VehicleDetailViel.as_view()
-vehicle_create_view = CreateVehicleView.as_view()
-vehicle_update_view = UpdateVehicleView.as_view()
+vehicle_create_view = VehicleCreateView.as_view()
+vehicle_update_view = VehicleUpdateView.as_view()
 
-bank_create_view = CreateBankView.as_view()
+bank_create_view = BankCreateView.as_view()
 bank_list_view = BankListView.as_view()
+bank_update_view = BankUpdateView.as_view()

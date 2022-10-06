@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}Atualizar Instituição Financeira{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">Atualizar Instituição Financeira</h3>
+        </div>
+        <div class="card-body" id="update_bank_div">
+            <form name="form_update_bank" method="post" id="form_update_bank">
+                {% csrf_token %}
+                {% include 'forms/default_form.html' %}
+            </form>
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+    <script>
+        var bankId = "{{ object_id }}";
+    </script>
+    <script src="{% static  'js/auctions/update_bank.js' %}"></script>
+{% endblock footer_javascript%}
