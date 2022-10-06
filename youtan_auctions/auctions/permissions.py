@@ -29,6 +29,4 @@ class UserViewSetPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if view.action in ("update", "partial_update", "destroy"):
             return request.user and request.user.is_staff
-        if view.action == "create":
-            return not request.user.is_authenticated
         return request.user and request.user.is_authenticated

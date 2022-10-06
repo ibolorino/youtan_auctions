@@ -3,9 +3,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView
+from django.views.generic import DetailView, RedirectView, UpdateView, TemplateView
+from youtan_auctions.auctions.mixins import AdminMixin
+from .forms import UserForm
 
 User = get_user_model()
+
+
+class UserListView(AdminMixin, TemplateView):
+    template_name = "users/list_users.html"
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -15,26 +21,25 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_url_kwarg = "username"
 
 
-user_detail_view = UserDetailView.as_view()
-
-
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
+class UserUpdateView(AdminMixin, TemplateView):
+    template_name = "users/update_user.html"
     model = User
-    fields = ["name"]
-    success_message = _("Information successfully updated")
 
-    def get_success_url(self):
-        assert (
-            self.request.user.is_authenticated
-        )  # for mypy to know that the user is authenticated
-        return self.request.user.get_absolute_url()
-
-    def get_object(self):
-        return self.request.user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context['form'] = UserForm(instance=instance)
+        context['object_id'] = instance.id
+        return context
 
 
-user_update_view = UserUpdateView.as_view()
+class UserCreateView(AdminMixin, TemplateView):
+    template_name = "users/create_user.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UserForm()
+        return context
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
@@ -45,4 +50,8 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
         return reverse("users:detail", kwargs={"username": self.request.user.username})
 
 
+user_list_view = UserListView.as_view()
+user_detail_view = UserDetailView.as_view()
+user_update_view = UserUpdateView.as_view()
+user_create_view = UserCreateView.as_view()
 user_redirect_view = UserRedirectView.as_view()

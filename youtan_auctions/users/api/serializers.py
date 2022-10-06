@@ -24,7 +24,6 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "password": {"write_only": True},
-            "is_staff": {"read_only": True},
         }
 
     def validate(self, data):
@@ -43,6 +42,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         is_valid_email(value)
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Email already exists.")
         return value
 
     def validate_password(self, value):

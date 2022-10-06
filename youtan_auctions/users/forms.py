@@ -3,6 +3,7 @@ from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django import forms
 
 User = get_user_model()
 
@@ -40,3 +41,19 @@ class UserSocialSignupForm(SocialSignupForm):
     Default fields will be added automatically.
     See UserSignupForm otherwise.
     """
+
+
+class UserForm(forms.Form):
+    name = forms.CharField(label="Nome", max_length=255, required=True)
+    username = forms.CharField(label="Username", max_length=255)
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(label="Senha", max_length=255, widget=forms.PasswordInput())
+    password2 = forms.CharField(label="Repita sua senha", max_length=255, widget=forms.PasswordInput())
+    is_staff = forms.BooleanField(label="Super usuário")
+    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name in self.fields:
+            field = self.fields.get(field_name)
+            field.widget.attrs.update({"placeholder": field.label})

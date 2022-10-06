@@ -1,24 +1,24 @@
 $(document).ready(function(){
-    let createBankUrl = 'http://localhost:8000/api/v1/banks/';
-    let auctionForm = $("#form_create_bank");
+    let createUserUrl = 'http://localhost:8000/api/v1/users/';
+    let userForm = $("#form_create_user");
 
-    auctionForm.submit(function(e){
+    userForm.submit(function(e){
         e.preventDefault();
         let formData = $("form").serialize();
         sendForm(formData);
     });
     
     const sendForm = formData => {
+        console.log('formData', formData);
         $.ajax({
-            url: createBankUrl,
+            url: createUserUrl,
             method: 'POST',
             data: formData,
             dataType: 'json',
             processData: false,
             success: function() {
-                createAlert('success', `Instituição Financeira criada com sucesso`);
-                auctionForm.trigger("reset");
-                $('select', auctionForm).trigger("change");
+                createAlert('success', `Usuário criado com sucesso`);
+                userForm.trigger("reset");
             },
             error: function(error) {
                 if (error.status == 400) {
