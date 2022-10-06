@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, DetailView
 from .forms import AuctionForm, PropertyForm, VehicleForm, BankForm
 from .mixins import AdminMixin
-from .models import Auction, Property, Vehicle
+from .models import Auction, Property, Vehicle, Bank
 
 
 class HomePageView(TemplateView):
@@ -122,6 +122,9 @@ class CreateBankView(AdminMixin, TemplateView):
         return context
 
 
+class BankListView(AdminMixin, TemplateView):
+    template_name = "auctions/list_banks.html"
+
 
 home_page = HomePageView.as_view()
 auctions_list_view = AuctionsListView.as_view()
@@ -138,3 +141,4 @@ vehicle_create_view = CreateVehicleView.as_view()
 vehicle_update_view = UpdateVehicleView.as_view()
 
 bank_create_view = CreateBankView.as_view()
+bank_list_view = BankListView.as_view()
