@@ -49,20 +49,21 @@ $(document).ready(function(){
             let itemHeader = document.createElement('div');
             itemHeader.className = 'card-header';
             itemHeader.innerHTML = `<h3 class="card-title">${item.name}</h3>`;
-           // itemHeader.appendChild(adminControls());
             return itemHeader;
         }
 
         function itemBody() {
             let itemBody = document.createElement('div');
             let currentBid = item.bids.length > 0 ? item.bids[0].value : item.initial_bid;
-            let divImgAttrs = {
-                innerHTML: `<img src="${item.images[0].image}" style="width:100%">`,
-                onclick: function() {setImagesModal(item)}
+            if (item.images.length > 0) {
+                let divImgAttrs = {
+                    innerHTML: `<img src="${item.images[0].image}" style="width:100%">`,
+                    onclick: function() {setImagesModal(item)}
+                }
+                let divImg = new DomElement('div', divImgAttrs).get();
+                divImg.style.cssText += 'cursor: pointer;';
+                itemBody.appendChild(divImg);
             }
-            let divImg = new DomElement('div', divImgAttrs).get();
-            divImg.style.cssText += 'cursor: pointer;';
-            itemBody.appendChild(divImg);
             itemBody.className = 'card-body px-1';
             itemBody.insertAdjacentHTML('beforeend', `
                 <div>

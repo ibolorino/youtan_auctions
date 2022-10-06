@@ -86,6 +86,18 @@ class CreateVehicleView(AdminMixin, TemplateView):
         return context
 
 
+class VehicleDetailViel(DetailView):
+    template_name = "auctions/vehicle_detail.html"
+    model = Vehicle
+    context_object_name = "vehicle"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        context["images"] = instance.vehicleimages_set.all()
+        return context
+
+
 class UpdateVehicleView(AdminMixin, DetailView):
     template_name = "auctions/update_item.html"
     model = Vehicle
@@ -110,5 +122,6 @@ all_items_list_view = AllItemsListView.as_view()
 property_detail_view = PropertyDetailViel.as_view()
 property_create_view = CreatePropertyView.as_view()
 property_update_view = UpdatePropertyView.as_view()
+vehicle_detail_view = VehicleDetailViel.as_view()
 vehicle_create_view = CreateVehicleView.as_view()
 vehicle_update_view = UpdateVehicleView.as_view()

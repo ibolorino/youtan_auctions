@@ -12,6 +12,7 @@ from .views import (
     vehicle_create_view,
     vehicle_update_view,
     property_detail_view,
+    vehicle_detail_view,
 )
 
 app_name = "auctions"
@@ -30,6 +31,7 @@ urlpatterns = [
     path("properties/<int:pk>/", property_detail_view, name="detail-property"),
     path("properties/create/", property_create_view, name="create-property"),
     path("properties/<int:pk>/update/", property_update_view, name="update-property"),
+    path("vehicles/<int:pk>/", vehicle_detail_view, name="detail-vehicle"),
     path("vehicles/create/", vehicle_create_view, name="create-vehicle"),
     path("vehicles/<int:pk>/update/", vehicle_update_view, name="update-vehicle"),
 ]

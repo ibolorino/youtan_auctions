@@ -4,15 +4,15 @@
 
 {% load bootstrap %}
 
-{% block head_title %}Youtan Auctions - {% block title %}{{ property.name }}{% endblock title %}{% endblock head_title %}
+{% block head_title %}Youtan Auctions - {% block title %}{{ vehicle.name }}{% endblock title %}{% endblock head_title %}
 
 {% block content%}
 
     <div class="card p-3">
         <div class="card-header">
-            <h3 class="card-title">{{ property.name }}</h3>
+            <h3 class="card-title">{{ vehicle.name }}</h3>
         </div>
-        <div class="card-body" id="property_detail_div">
+        <div class="card-body" id="vehicle_detail_div">
             {% if images %}
                 <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
                     <div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -34,23 +34,29 @@
                     </div>
                 </div>
             {% endif %}
+
             <h3>Leilão</h3>
-            <p>{{ property.auction.name }}</p>
-            <h3>Tipo de imóvel</h3>
-            <p>{{ property.property_type }}</p>
+            <p>{{ vehicle.auction.name }}</p>
+            <h3>Tipo de Veículo</h3>
+            <p>{{ vehicle.vehicle_type }}</p>
+            <h3>Modelo</h3>
+            <p>{{ vehicle.model }}</p>
+            <h3>Marca</h3>
+            <p>{{ vehicle.brand }}</p>
+            <h3>Ano</h3>
+            <p>{{ vehicle.year }}</p>
+            <h3>Quilometragem</h3>
+            <p>{{ vehicle.mileage }}km</p>
+            <h3>Câmbio</h3>
+            <p>{{ vehicle.transmission }}</p>
+            <h3>Combustível</h3>
+            <p>{{ vehicle.fuel }}</p>
             <h3>Origem</h3>
-            <p>{{ property.origin }}</p>
-            <h3>Situação</h3>
-            <p>{{ property.status }}</p>
-            <h3>Área</h3>
-            <p>{{ property.area }}m²</p>
-            <h3>Débitos</h3>
-            <p>{{ property.debtis|yesno:"Sim,Não" }}</p>
+            <p>{{ vehicle.origin }}</p>
+            <h3>Placa</h3>
+            <p>{{ vehicle.plate }}</p>
             <h3>Observações</h3>
-            <p>{{ property.observation }}</p>
-            <h3>Endereço</h3>
-            <p>{{ property.address }} - {{ property.city }}/{{ property.state }}. CEP {{ property.zip_code }}.</p>
-            
+            <p>{{ vehicle.observation }}</p>
         </div>
     </div>
 
