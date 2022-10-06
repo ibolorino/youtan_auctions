@@ -74,6 +74,7 @@ class UpdatePropertyView(AdminMixin, DetailView):
         context['form'] = PropertyForm(instance=instance)
         context['item_type'] = 'properties'
         context['object_id'] = instance.id
+        context["images"] = instance.propertyimages_set.all()
         return context
 
 
@@ -108,6 +109,7 @@ class UpdateVehicleView(AdminMixin, DetailView):
         context['form'] = VehicleForm(instance=instance)
         context['item_type'] = 'vehicles'
         context['object_id'] = instance.id
+        context["images"] = instance.vehicleimages_set.all()
         return context
 
 
