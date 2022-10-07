@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}Novo Leilão{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">Cadastrar Leilão</h3>
+        </div>
+        <div class="card-body" id="create_auction_div">
+            <form name="form_create_auction" method="post" id="form_create_auction">
+                {% csrf_token %}
+                {% include 'forms/default_form.html' %}
+            </form>
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+    <script src="{% static  'js/auctions/create_auction.js' %}"></script>
+{% endblock footer_javascript%}

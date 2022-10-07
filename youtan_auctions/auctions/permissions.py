@@ -1,4 +1,5 @@
 from rest_framework import permissions
+from youtan_auctions.users.models import User
 
 
 class IsAdminOrReadOnly(permissions.BasePermission):
@@ -29,6 +30,7 @@ class UserViewSetPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if view.action in ("update", "partial_update", "destroy"):
             return request.user and request.user.is_staff
-        if view.action == "create":
-            return not request.user.is_authenticated
+        if view.action == "change_password":
+            pk = view.kwargs.get("pk")
+            return request.user.is_authenticated and request.user in User.objects.filter(pk=pk)
         return request.user and request.user.is_authenticated

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}Atualizar Item{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">Atualizar Item</h3>
+        </div>
+        <div class="card-body" id="update_item_div">
+            <form name="form_update_item" method="post" id="form_update_item">
+                {% csrf_token %}
+                {% include 'forms/default_form.html' %}
+            </form>
+            <div class="mt-5">
+                <h4>Fotos já cadastradas</h4>
+                <div id="div_photos">
+                    {% if images %}
+                        <table class="table table-striped table-hover gx-5">
+                            <thead>
+                                <tr class="fw-bolder">
+                                    <th scope="col">Imagem</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_images">
+                                {% for image in images %}
+                                    <tr>
+                                        <td><a href="{{ image.image.url }}" target="_blank">{{ image.image.name }}</a></td>
+                                        <td><a href="#" class="btn-del-img" data-id="{{ image.id }}">Excluir</span></td>
+                                    </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>Nenhuma foto cadastrada</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+    <script>
+        var itemType = "{{ item_type }}";
+        var itemId = "{{ object_id }}";
+    </script>
+    <script src="{% static  'js/auctions/update_item.js' %}"></script>
+{% endblock footer_javascript%}

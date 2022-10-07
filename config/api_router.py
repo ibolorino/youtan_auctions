@@ -25,7 +25,7 @@ router.register(
     "properties_images", PropertyImagesViewSet, basename="properties_images"
 )
 router.register("vehicles", VehicleViewSet, basename="vehicles")
-router.register("vehicle_images", VehicleImagesViewSet, basename="vehicle_images")
+router.register("vehicles_images", VehicleImagesViewSet, basename="vehicle_images")
 router.register("bid", BidViewSet, basename="bid")
 
 

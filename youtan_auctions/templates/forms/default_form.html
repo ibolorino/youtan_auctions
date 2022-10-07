@@ -1,0 +1,32 @@
+{% load custom_tags %}
+
+{% load bootstrap %}
+
+{% for field in form %}
+
+    {% if field|is_checkbox %}
+        <div class="form-check form-check-custom form-check-solid {% if col_size %}col-{{col_size}}{% endif %} mt-3">
+            <input class="form-check-input" type="checkbox" id="id_{{ field.name }}" name="{{ field.name }}" {% if field.value %}checked{% endif %}/>
+            <label class="form-check-label" for="id_{{ field.name }}">{{ field.label }}</label>
+        </div>
+    {% else %}
+        <div class="form-group {% if col_size %}col-{{col_size}}{% endif %}">
+            <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            <div>
+              {{ field|add_form_classes }}
+              <p class="help-text">{{ field.help_text }} </p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endfor %}
+
+<div class="{% if submit_size == None %}d-flex{% endif %} flex-column mt-3 align-right">
+  <input
+    id="submit-button"
+    type="submit"
+    class="btn btn-primary w-{% if submit_size %}{{submit_size}}{% else %}100{% endif %}"
+    value="{% if submit_text %}{{submit_text}}{% else %}Enviar{% endif %}"
+    {% if object_id %}data-id="{{ object_id }}"{% endif %}
+  >
+</div>

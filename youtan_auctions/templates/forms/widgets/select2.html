@@ -1,0 +1,6 @@
+<select id="{{ widget.name }}" name="{{ widget.name }}" class="form-select" data-control="select2" data-placeholder="{{ widget.attrs.placeholder }}">
+    <option></option>
+    {% for obj in objects %}
+        <option value="{{ obj.0 }}">{{ obj.1 }}</option>
+    {% endfor %}
+</select>

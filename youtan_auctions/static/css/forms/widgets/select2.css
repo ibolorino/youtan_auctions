@@ -1,0 +1,4 @@
+.select2-results li:hover, .select2-results__option--highlighted {
+    /* color: white !important; */
+    background-color: #FFE1E0 !important;
+}

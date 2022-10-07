@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load custom_tags %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}{{ vehicle.name }}{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">{{ vehicle.name }}</h3>
+        </div>
+        <div class="card-body" id="vehicle_detail_div">
+            {% if images %}
+                <div id="kt_carousel_1_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap">
+                        <span class="fs-4 fw-bold pe-2"></span>
+                        <ol class="p-0 m-0 carousel-indicators carousel-indicators-dots">
+                            {% for image in images %}
+                                <li data-bs-target="#kt_carousel_1_carousel" data-bs-slide-to="{{ forloop.counter0 }}" class="ms-1{% if forloop.first %} active{% endif %}"></li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                    <div class="carousel-inner pt-8">
+                        {% for image in images %}
+                        <div class="carousel-item {% if forloop.first %} active{% endif %}" style="height: 200px">
+                            <a href="{{ image.image.url }}" target="_blank">
+                                <img src="{{ image.image.url }}" style="max-height: 100%; max-width: 100%">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <h3>Leilão</h3>
+            <p>{{ vehicle.auction.name }}</p>
+            <h3>Tipo de Veículo</h3>
+            <p>{{ vehicle.vehicle_type }}</p>
+            <h3>Modelo</h3>
+            <p>{{ vehicle.model }}</p>
+            <h3>Marca</h3>
+            <p>{{ vehicle.brand }}</p>
+            <h3>Ano</h3>
+            <p>{{ vehicle.year }}</p>
+            <h3>Quilometragem</h3>
+            <p>{{ vehicle.mileage }} km</p>
+            <h3>Câmbio</h3>
+            <p>{{ vehicle.transmission }}</p>
+            <h3>Combustível</h3>
+            <p>{{ vehicle.fuel }}</p>
+            <h3>Origem</h3>
+            <p>{{ vehicle.origin }}</p>
+            <h3>Placa</h3>
+            <p>{% if user.is_superuser %}{{ vehicle.plate }}{% else %}{{ vehicle.plate|hidden_plate }}{% endif %}</p>
+            <h3>Observações</h3>
+            <p>{{ vehicle.observation }}</p>
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+{% endblock footer_javascript%}
