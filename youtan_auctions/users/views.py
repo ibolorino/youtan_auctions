@@ -21,18 +21,6 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_url_kwarg = "username"
 
 
-class UserUpdateView(AdminMixin, TemplateView):
-    template_name = "users/update_user.html"
-    model = User
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        instance = self.get_object()
-        context['form'] = UserCreateForm(instance=instance)
-        context['object_id'] = instance.id
-        return context
-
-
 class UserCreateView(AdminMixin, TemplateView):
     template_name = "users/create_user.html"
     
@@ -63,18 +51,9 @@ class UserChangePasswordView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class UserRedirectView(LoginRequiredMixin, RedirectView):
-
-    permanent = False
-
-    def get_redirect_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username})
-
-
 user_list_view = UserListView.as_view()
 user_detail_view = UserDetailView.as_view()
 user_update_view = UserUpdateView.as_view()
 user_create_view = UserCreateView.as_view()
 user_update_view = UserUpdateView.as_view()
 user_change_password_view = UserChangePasswordView.as_view()
-user_redirect_view = UserRedirectView.as_view()

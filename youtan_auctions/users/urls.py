@@ -1,12 +1,9 @@
 from django.urls import path
 
 from youtan_auctions.users.views import (
-    user_detail_view,
-    user_redirect_view,
     user_update_view,
     user_list_view,
     user_create_view,
-    user_update_view,
     user_change_password_view
 )
 
@@ -16,7 +13,4 @@ urlpatterns = [
     path("create/", user_create_view, name="create-user"),
     path("<int:pk>/update/", user_update_view, name="update-user"),
     path("change_password/", user_change_password_view, name="change-password"),
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
 ]
