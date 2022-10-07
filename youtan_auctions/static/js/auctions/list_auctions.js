@@ -49,9 +49,22 @@ $(document).ready(function(){
 
         function auctionBody() {
             let auctionBody = document.createElement('div');
-            auctionBody.className = 'card-body';
-            auctionBody.innerHTML = `<p><b>Data final: </b>${convertDate(auction.date)}</p>
-            <a href="/auctions/${auction.id}/items/" class="btn btn-sm w-100 btn-primary">Ver Items</a>`;
+            auctionBody.className = 'card-body pt-5 p-3';
+            auctionBody.innerHTML = `
+                <h6 class="mb-0"><b>Data final</b></h6>
+                <p class="mb-3 lh-sm">${convertDate(auction.date)}</p>
+                <h6 class="mb-0"><b>Endereço</b></h6>
+                <p class="mb-3 lh-sm">
+                    ${auction.address}<br>
+                    ${auction.city} - ${auction.state}
+                </p>
+                <h6 class="mb-0"><b>Instituição Financeira</b></h6>
+                <p class="mb-3 lh-sm">
+                    ${auction.bank.name}<br>
+                    CNPJ ${auction.bank.cnpj}
+                </p>
+                <a href="/auctions/${auction.id}/items/" class="btn btn-sm w-100 btn-primary mt-3">Ver Items</a>
+                `;
             return auctionBody;
         }
 

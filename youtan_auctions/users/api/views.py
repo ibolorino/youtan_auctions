@@ -3,6 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
 from youtan_auctions.auctions.permissions import UserViewSetPermission
+from youtan_auctions.auctions.models import Properties_Bids, Vehicles_Bids
 
 from .serializers import UserSerializer, UserChangePasswordSerializer
 from .actions import UserActions

@@ -25,14 +25,15 @@ $(document).ready(function(){
                     divItems.appendChild(itemElement(property, "property"));
                 }
             );
-        }
+        };
         if (vehicles.length > 0) {
             vehicles.map(
                 vehicle => {
                     divItems.appendChild(itemElement(vehicle, "vehicle"));
                 }
             );
-        }
+        };
+        if (properties.length + vehicles.length == 0) divItems.innerHTML = "<h4>Nenhum item cadastrado.</h4>"
     };
 
 

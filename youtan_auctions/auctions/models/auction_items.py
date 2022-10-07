@@ -37,7 +37,7 @@ class Property(models.Model):
 
 
 class Properties_Bids(models.Model):
-    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.CASCADE)
     property = models.ForeignKey(
         Property, verbose_name="Imóvel", on_delete=models.CASCADE
     )
@@ -92,7 +92,7 @@ class Vehicle(models.Model):
 
 
 class Vehicles_Bids(models.Model):
-    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, verbose_name="Cliente", on_delete=models.CASCADE)
     vehicle = models.ForeignKey(
         Vehicle, verbose_name="Veículo", on_delete=models.CASCADE
     )
