@@ -4,14 +4,20 @@ from rest_framework.response import Response
 
 from youtan_auctions.auctions.permissions import UserViewSetPermission
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserChangePasswordSerializer
+from .actions import UserActions
 
 User = get_user_model()
 
 
-class UserViewSet(ModelViewSet):
+class UserViewSet(UserActions, ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [UserViewSetPermission]
+
+    def get_serializer_class(self):
+        if self.action == "change_password":
+            return UserChangePasswordSerializer
+        return UserSerializer
 
     def get_queryset(self, *args, **kwargs):
         assert isinstance(self.request.user.id, int)

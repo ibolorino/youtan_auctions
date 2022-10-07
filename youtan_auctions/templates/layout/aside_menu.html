@@ -20,139 +20,141 @@
 			<span class="menu-section text-muted text-uppercase fs-8 ls-1">Menu Principal</span>
 		</div>
 		</div>
-		{% if user.is_superuser %}
+		{% if request.user.is_authenticated %}
+			{% if request.user.is_superuser %}
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="bi bi-arrow-return-right fs-2"></i>
+						</span>
+						<span class="menu-title">Instituições Financeiras</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'auctions:create-bank' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Cadastrar Instituição</span>
+							</a>
+						</div>
+					</div>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'auctions:list-banks' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Ver Instituições</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endif %}
 			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 				<span class="menu-link">
 					<span class="menu-icon">
 						<i class="bi bi-arrow-return-right fs-2"></i>
 					</span>
-					<span class="menu-title">Instituições Financeiras</span>
+					<span class="menu-title">Items</span>
 					<span class="menu-arrow"></span>
 				</span>
+				{% if request.user.is_superuser %}
 				<div class="menu-sub menu-sub-accordion menu-active-bg">
 					<div class="menu-item">
-						<a class="menu-link" href="{% url 'auctions:create-bank' %}">
+						<a class="menu-link" href="{% url 'auctions:create-property' %}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
-							<span class="menu-title">Cadastrar Instituição</span>
+							<span class="menu-title">Cadastrar Propriedade</span>
 						</a>
 					</div>
 				</div>
 				<div class="menu-sub menu-sub-accordion menu-active-bg">
 					<div class="menu-item">
-						<a class="menu-link" href="{% url 'auctions:list-banks' %}">
+						<a class="menu-link" href="{% url 'auctions:create-vehicle' %}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
-							<span class="menu-title">Ver Instituições</span>
+							<span class="menu-title">Cadastrar Veículo</span>
+						</a>
+					</div>
+				</div>
+				{% endif %}
+				<div class="menu-sub menu-sub-accordion menu-active-bg">
+					<div class="menu-item">
+						<a class="menu-link" href="{% url 'auctions:list-items' %}">
+							<span class="menu-bullet">
+								<span class="bullet bullet-dot"></span>
+							</span>
+							<span class="menu-title">Ver Itens</span>
 						</a>
 					</div>
 				</div>
 			</div>
-		{% endif %}
-		<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-			<span class="menu-link">
-				<span class="menu-icon">
-					<i class="bi bi-arrow-return-right fs-2"></i>
-				</span>
-				<span class="menu-title">Items</span>
-				<span class="menu-arrow"></span>
-			</span>
-			{% if user.is_superuser %}
-			<div class="menu-sub menu-sub-accordion menu-active-bg">
-				<div class="menu-item">
-					<a class="menu-link" href="{% url 'auctions:create-property' %}">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Cadastrar Propriedade</span>
-					</a>
-				</div>
-			</div>
-			<div class="menu-sub menu-sub-accordion menu-active-bg">
-				<div class="menu-item">
-					<a class="menu-link" href="{% url 'auctions:create-vehicle' %}">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Cadastrar Veículo</span>
-					</a>
-				</div>
-			</div>
-			{% endif %}
-			<div class="menu-sub menu-sub-accordion menu-active-bg">
-				<div class="menu-item">
-					<a class="menu-link" href="{% url 'auctions:list-items' %}">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Ver Itens</span>
-					</a>
-				</div>
-			</div>
-		</div>
-		<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-			<span class="menu-link">
-				<span class="menu-icon">
-					<i class="bi bi-arrow-return-right fs-2"></i>
-				</span>
-				<span class="menu-title">Leilões</span>
-				<span class="menu-arrow"></span>
-			</span>
-			{% if user.is_superuser %}
-			<div class="menu-sub menu-sub-accordion menu-active-bg">
-				<div class="menu-item">
-					<a class="menu-link" href="{% url 'auctions:create-auction' %}">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Cadastrar Leilão</span>
-					</a>
-				</div>
-			</div>
-			{% endif %}
-			<div class="menu-sub menu-sub-accordion menu-active-bg">
-				<div class="menu-item">
-					<a class="menu-link" href="{% url 'auctions:list-auctions' %}">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Ver Leilões</span>
-					</a>
-				</div>
-			</div>
-		</div>
-		{% if user.is_superuser %}
 			<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 				<span class="menu-link">
 					<span class="menu-icon">
 						<i class="bi bi-arrow-return-right fs-2"></i>
 					</span>
-					<span class="menu-title">Usuários</span>
+					<span class="menu-title">Leilões</span>
 					<span class="menu-arrow"></span>
 				</span>
+				{% if request.user.is_superuser %}
 				<div class="menu-sub menu-sub-accordion menu-active-bg">
 					<div class="menu-item">
-						<a class="menu-link" href="{% url 'users:create-user' %}">
+						<a class="menu-link" href="{% url 'auctions:create-auction' %}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
-							<span class="menu-title">Cadastrar Usuário</span>
+							<span class="menu-title">Cadastrar Leilão</span>
 						</a>
 					</div>
 				</div>
+				{% endif %}
 				<div class="menu-sub menu-sub-accordion menu-active-bg">
 					<div class="menu-item">
-						<a class="menu-link" href="{% url 'users:list-users' %}">
+						<a class="menu-link" href="{% url 'auctions:list-auctions' %}">
 							<span class="menu-bullet">
 								<span class="bullet bullet-dot"></span>
 							</span>
-							<span class="menu-title">Ver Usuários</span>
+							<span class="menu-title">Ver Leilões</span>
 						</a>
 					</div>
 				</div>
 			</div>
+			{% if request.user.is_superuser %}
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-icon">
+							<i class="bi bi-arrow-return-right fs-2"></i>
+						</span>
+						<span class="menu-title">Usuários</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'users:create-user' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Cadastrar Usuário</span>
+							</a>
+						</div>
+					</div>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'users:list-users' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Ver Usuários</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endif %}
 		{% endif %}
 	</div>
   <!--end::Menu-->

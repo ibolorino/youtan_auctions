@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load bootstrap %}
+
+{% block head_title %}Youtan Auctions - {% block title %}Atualizar Usuário{% endblock title %}{% endblock head_title %}
+
+{% block content%}
+
+    <div class="card p-3">
+        <div class="card-header">
+            <h3 class="card-title">Atualizar Usuário</h3>
+        </div>
+        <div class="card-body" id="update_user_div">
+            <form name="form_update_user" method="post" id="form_update_user">
+                {% csrf_token %}
+                {% include 'forms/default_form.html' %}
+            </form>
+        </div>
+    </div>
+
+{% endblock content%}
+
+
+{% block footer_javascript %}
+    <script>
+        var userId = "{{ object_id }}";
+    </script>
+    <script src="{% static  'js/users/update_user.js' %}"></script>
+{% endblock footer_javascript%}

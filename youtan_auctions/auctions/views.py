@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import AuctionForm, PropertyForm, VehicleForm, BankForm
 from .mixins import AdminMixin
 from .models import Auction, Property, Vehicle, Bank
@@ -8,7 +9,7 @@ class HomePageView(TemplateView):
     template_name = "pages/home.html"
 
 
-class AuctionsListView(TemplateView):
+class AuctionsListView(LoginRequiredMixin, TemplateView):
     template_name = "auctions/list_auctions.html"
 
 
@@ -33,13 +34,13 @@ class AuctionUpdateView(AdminMixin, DetailView):
         return context
 
 
-class AuctionItemsListView(DetailView):
+class AuctionItemsListView(LoginRequiredMixin, DetailView):
     template_name = "auctions/list_auction_items.html"
     model = Auction
     context_object_name = "auction"
 
 
-class AllItemsListView(TemplateView):
+class AllItemsListView(LoginRequiredMixin, TemplateView):
     template_name = "auctions/list_all_items.html"
 
 
@@ -52,7 +53,7 @@ class PropertyCreateView(AdminMixin, TemplateView):
         return context
 
 
-class PropertyDetailViel(DetailView):
+class PropertyDetailViel(LoginRequiredMixin, DetailView):
     template_name = "auctions/property_detail.html"
     model = Property
     context_object_name = "property"
@@ -87,7 +88,7 @@ class VehicleCreateView(AdminMixin, TemplateView):
         return context
 
 
-class VehicleDetailViel(DetailView):
+class VehicleDetailViel(LoginRequiredMixin, DetailView):
     template_name = "auctions/vehicle_detail.html"
     model = Vehicle
     context_object_name = "vehicle"

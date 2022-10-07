@@ -2,14 +2,10 @@
 
 {% load bootstrap %}
 
-<div class="d-flex flex-column">
-  {% include 'forms/form_errors.html' %}
-</div>
-
 {% for field in form %}
 
     {% if field|is_checkbox %}
-        <div class="form-check form-check-custom form-check-solid {% if col_size %}col-{{col_size}}{% endif %}">
+        <div class="form-check form-check-custom form-check-solid {% if col_size %}col-{{col_size}}{% endif %} mt-3">
             <input class="form-check-input" type="checkbox" id="id_{{ field.name }}" name="{{ field.name }}" {% if field.value %}checked{% endif %}/>
             <label class="form-check-label" for="id_{{ field.name }}">{{ field.label }}</label>
         </div>
