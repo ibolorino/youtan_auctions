@@ -18,20 +18,18 @@ License: MIT
 
 -   On project folder use this command to build the docker containers:
 
-        $ docker compose -f local.yml build
+        $ docker-compose -f local.yml build
 
 -   Run the initial migrate to database:
 
-        $ docker compose -f local.yml run --rm django python manage.py migrate
+        $ docker-compose -f local.yml run --rm django python manage.py migrate
 
 -   Up the containers to access a local application on http://localhost:8000/:
 
-        $ docker compose -f local.yml up
+        $ docker-compose -f local.yml up
 
 ### Setting Up Your Users
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
-
 -   To create a **superuser account**, use this command:
 
-        $ docker compose -f local.yml run --rm django python manage.py createsuperuser
+        $ docker-compose -f local.yml run --rm django python manage.py createsuperuser
